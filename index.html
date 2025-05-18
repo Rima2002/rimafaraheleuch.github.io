@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlappyBird Character Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f9f9f9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    canvas {
+      border: 2px solid #aaa;
+      background-color: #f1f1f1;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #scoreBoard {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    #controls {
+      margin: 15px 0;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #388E3C;
+    }
+
+    #restartButton {
+      display: none;
+      background-color: #f44336;
+    }
+
+    #restartButton:hover {
+      background-color: #d32f2f;
+    }
+
+    #winMessage {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 40px 60px;
+      border: 3px solid #4CAF50;
+      border-radius: 20px;
+      font-size: 36px;
+      color: #388E3C;
+      font-weight: bold;
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+  </style>
+</head>
+<body style="background-color:rgb(169, 236, 169)">
+  <div id="scoreBoard">Score: 0</div>
+  <div id="controls">
+    <button id="startButton">Start Game</button>
+    <button id="restartButton">Restart Game</button>
+  </div>
+
+  <canvas id="canvas" width="900" height="590"></canvas>
+
+  <div id="winMessage">🎉 You Won!</div>
+
+<script>
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const scoreBoard = document.getElementById("scoreBoard");
+  const startButton = document.getElementById("startButton");
+  const restartButton = document.getElementById("restartButton");
+  const winMessage = document.getElementById("winMessage");
+
+  const bgImage = new Image();
+  const appleImage = new Image();
+  const squirrelImage = new Image();
+
+  bgImage.src = "images/background.png";
+  appleImage.src = "images/elma.png";
+  squirrelImage.src = "images/charachter4.png";
+
+  const collectSound = new Audio("audio/eat_sound.mp3");
+  const waterSound = new Audio("audio/background_music.mp3");
+  const gameOverSound = new Audio("audio/gameover.mp3");
+  waterSound.loop = true;
+  waterSound.volume = 0.5;
+
+  let character = null;
+  let keys = [];
+  let score = 0;
+  let gameOver = false;
+  let gameInterval;
+
+  let appleX, appleY;
+  const appleWidth = 70;
+  const appleHeight = 70;
+
+  const obstacles = [
+    { x: 400, y: 350, width: 80, height: 80, speedX: 3, speedY: 0 },
+    { x: 200, y: 100, width: 80, height: 80, speedX: 0, speedY: 3 },
+    { x: 700, y: 200, width: 80, height: 80, speedX: 0, speedY: 2 }
+  ];
+
+  let loadedAssets = 0;
+  const totalAssets = 3;
+
+  function assetLoaded() {
+    loadedAssets++;
+    if (loadedAssets === totalAssets) {
+      initializeCharacter();
+      randomizeApple();
+      drawStartScreen();
+    }
+  }
+
+  bgImage.onload = assetLoaded;
+  appleImage.onload = assetLoaded;
+  squirrelImage.onload = assetLoaded;
+
+  class Character {
+    constructor(width, height, image, x, y) {
+      this.width = width;
+      this.height = height;
+      this.image = image;
+      this.x = x;
+      this.y = y;
+      this.speedX = 0;
+      this.speedY = 0;
+    }
+
+    update() {
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    }
+
+    newPosition() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+    }
+
+    touchesApple() {
+      return (
+        appleX >= this.x &&
+        appleX + appleWidth <= this.x + this.width &&
+        appleY >= this.y &&
+        appleY + appleHeight <= this.y + this.height
+      );
+    }
+  }
+
+  function initializeCharacter() {
+    character = new Character(150, 150, squirrelImage, 0, 0);
+  }
+
+  function randomizeApple() {
+    appleX = Math.floor(Math.random() * (canvas.width - appleWidth));
+    appleY = Math.floor(Math.random() * (canvas.height - appleHeight));
+  }
+
+  function increaseScore() {
+    score++;
+    scoreBoard.textContent = "Score: " + score;
+
+    if (score === 3) {
+      gameOver = true;
+      clearInterval(gameInterval);
+      waterSound.pause();
+      winMessage.style.display = "block";
+      restartButton.style.display = "inline-block";
+    }
+  }
+
+  function setupControls() {
+    window.addEventListener("keydown", function (e) {
+      if ([37, 38, 39, 40].includes(e.keyCode)) {
+        e.preventDefault();
+        keys[e.keyCode] = true;
+      }
+    });
+
+    window.addEventListener("keyup", function (e) {
+      if ([37, 38, 39, 40].includes(e.keyCode)) {
+        keys[e.keyCode] = false;
+      }
+    });
+  }
+
+  function hitsAnyObstacle() {
+    return obstacles.some(obs =>
+      character.x < obs.x + obs.width-20 &&
+      character.x + character.width-20 > obs.x &&
+      character.y < obs.y + obs.height-20 &&
+      character.y + character.height-20 > obs.y
+    );
+  }
+
+  function updateObstacles() {
+    for (let obs of obstacles) {
+      obs.x += obs.speedX;
+      obs.y += obs.speedY;
+
+      if (obs.x <= 0 || obs.x + obs.width >= canvas.width) {
+        obs.speedX *= -1;
+      }
+
+      if (obs.y <= 0 || obs.y + obs.height >= canvas.height) {
+        obs.speedY *= -1;
+      }
+    }
+  }
+
+  function updateGameArea() {
+    if (gameOver) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bgImage, 0, 0);
+    ctx.drawImage(appleImage, appleX, appleY, appleWidth, appleHeight);
+
+    updateObstacles();
+
+    ctx.fillStyle = "brown";
+    for (let obs of obstacles) {
+      ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+    }
+
+    character.speedX = 0;
+    character.speedY = 0;
+    const moveSpeed = 4;
+    if (keys[37]) character.speedX = -moveSpeed;
+    if (keys[39]) character.speedX = moveSpeed;
+    if (keys[38]) character.speedY = -moveSpeed;
+    if (keys[40]) character.speedY = moveSpeed;
+
+    ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 4;
+
+    character.newPosition();
+    character.update();
+
+    if (character.touchesApple()) {
+      randomizeApple();
+      increaseScore();
+      collectSound.currentTime = 0;
+      collectSound.play();
+    }
+
+    if (hitsAnyObstacle()) {
+      gameOver = true;
+      clearInterval(gameInterval);
+      waterSound.pause();
+      gameOverSound.play();
+      ctx.fillStyle = "red";
+      ctx.font = "bold 48px sans-serif";
+      ctx.fillText("Game Over!", canvas.width / 2 - 140, canvas.height / 2);
+      restartButton.style.display = "inline-block";
+    }
+
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+  }
+
+  function startGame() {
+    gameOver = false;
+    score = 0;
+    winMessage.style.display = "none";
+    scoreBoard.textContent = "Score: 0";
+    initializeCharacter();
+    randomizeApple();
+    setupControls();
+    waterSound.play().catch(e => console.log("Autoplay blocked"));
+    gameInterval = setInterval(updateGameArea, 20);
+  }
+
+  function drawStartScreen() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bgImage, 0, 0);
+    ctx.fillStyle = "black";
+    ctx.font = "bold 36px sans-serif";
+    ctx.fillText("Click Start to Begin", canvas.width / 2 - 180, canvas.height / 2);
+  }
+
+  function restartGame() {
+    restartButton.style.display = "none";
+    startGame();
+  }
+
+  startButton.addEventListener("click", () => {
+    startButton.style.display = "none";
+    restartButton.style.display = "none";
+    startGame();
+  });
+
+  restartButton.addEventListener("click", () => {
+    restartGame();
+  });
+</script>
+
+</body>
+</html>
