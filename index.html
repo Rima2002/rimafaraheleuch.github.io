@@ -2,31 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FlappyBird Character Control</title>
+  <title>Sincap: Elma Toplamak</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      margin: 0;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #f9f9f9;
+      background-color: rgb(169, 236, 169);
       font-family: 'Segoe UI', sans-serif;
     }
 
     canvas {
       border: 2px solid #aaa;
       background-color: #f1f1f1;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     #scoreBoard {
       font-size: 24px;
       font-weight: bold;
       margin: 10px 0;
+    }
+
+    #timer {
+      font-size: 20px;
+      color: #444;
     }
 
     #controls {
@@ -71,256 +76,344 @@
       font-size: 36px;
       color: #388E3C;
       font-weight: bold;
-      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
       z-index: 999;
     }
+
+
+    #howToPlay {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border: 3px solid #4CAF50;
+        border-radius: 16px;
+        padding: 30px 40px;
+        font-size: 20px;
+        color: #333;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+
+    #howToPlay h2 {
+        color: #4CAF50;
+        margin-top: 0;
+    }
+
   </style>
 </head>
-<body style="background-color:rgb(169, 236, 169)">
-  <div id="scoreBoard">Score: 0</div>
+<body>
+<!-- Skor ve zaman gösterisi -->
+  <div id="scoreBoard">Skor: 0</div>
+  <div id="timer">Kalan Zaman: 20s</div>
+
+<!-- Oyun kontrol butonları -->
   <div id="controls">
-    <button id="startButton">Start Game</button>
-    <button id="restartButton">Restart Game</button>
+    <button id="startButton">Oyunu Başlat</button>
+    <button id="restartButton">Oyunu Yeniden Başla</button>
   </div>
 
+<!-- Oyunucuya oyun açıklaması gösterisi -->
+  <div id="howToPlay">
+  <h2>Nasıl Oynanır</h2>
+    <p>
+        🍏 Kazanmak için <strong>8 Elma</strong> topla.<br>
+        🕹️ <strong>Yön tuşları </strong>kullanarak hareket et.<br>
+        🚫 Kahverengi bloklardan kaçın — bir vuruş oyunu bitirir.<br>
+        ⏰ Bunu yapmak için <strong>20 saniyen</strong> var!</var>!
+    </p>
+    <p><em>Başlamak için “Oyunu Başlat” tuşuna tıkla.</em></p>
+  </div>
+
+<!-- Oyun Alanı -->
   <canvas id="canvas" width="900" height="590"></canvas>
 
-  <div id="winMessage">🎉 You Won!</div>
+<!-- Kazanma mesajı -->
+  <div id="winMessage">🎉 Kazandın!</div>
 
-<script>
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-  const scoreBoard = document.getElementById("scoreBoard");
-  const startButton = document.getElementById("startButton");
-  const restartButton = document.getElementById("restartButton");
-  const winMessage = document.getElementById("winMessage");
+  <script>
+// Canvas ve bağlamı alınır
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
-  const bgImage = new Image();
-  const appleImage = new Image();
-  const squirrelImage = new Image();
+//UI elementleri
+    const scoreBoard = document.getElementById("scoreBoard");
+    const startButton = document.getElementById("startButton");
+    const restartButton = document.getElementById("restartButton");
+    const winMessage = document.getElementById("winMessage");
+    const timerDisplay = document.getElementById("timer");
 
-  bgImage.src = "images/background.png";
-  appleImage.src = "images/elma.png";
-  squirrelImage.src = "images/charachter4.png";
+// Görseller ve sesler tanımlanır
+    const bgImage = new Image();
+    const appleImage = new Image();
+    const squirrelImage = new Image();
 
-  const collectSound = new Audio("audio/eat_sound.mp3");
-  const waterSound = new Audio("audio/background_music.mp3");
-  const gameOverSound = new Audio("audio/gameover.mp3");
-  waterSound.loop = true;
-  waterSound.volume = 0.5;
+    bgImage.src = "images/background.png";
+    appleImage.src = "images/elma.png";
+    squirrelImage.src = "images/character.png";
 
-  let character = null;
-  let keys = [];
-  let score = 0;
-  let gameOver = false;
-  let gameInterval;
+    const collectSound = new Audio("audio/collect_sound.mp3");
+    const backgroundMusic = new Audio("audio/background_music.mp3");
+    const gameOverSound = new Audio("audio/gameover.mp3");
 
-  let appleX, appleY;
-  const appleWidth = 70;
-  const appleHeight = 70;
+// Müzik döngüde çalsın
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.4;
 
-  const obstacles = [
-    { x: 400, y: 350, width: 80, height: 80, speedX: 3, speedY: 0 },
-    { x: 200, y: 100, width: 80, height: 80, speedX: 0, speedY: 3 },
-    { x: 700, y: 200, width: 80, height: 80, speedX: 0, speedY: 2 }
-  ];
+// Oyun durumu değişkenleri
+    let character;
+    let keys = [];
+    let score = 0;
+    let gameOver = false;
+    let gameInterval;
+    let timerInterval;
+    let timeLeft = 20;
 
-  let loadedAssets = 0;
-  const totalAssets = 3;
+// Elmanın konumu 
+    let appleX, appleY;
+    const appleSize = 70;
 
-  function assetLoaded() {
-    loadedAssets++;
-    if (loadedAssets === totalAssets) {
-      initializeCharacter();
-      randomizeApple();
-      drawStartScreen();
-    }
-  }
+// Engeller (hareketli bloklar)
+    const obstacles = [
+      { x: 400, y: 350, width: 80, height: 80, speedX: 3, speedY: 0 },
+      { x: 200, y: 100, width: 80, height: 80, speedX: 0, speedY: 3 },
+      { x: 700, y: 200, width: 80, height: 80, speedX: 0, speedY: 2 }
+    ];
 
-  bgImage.onload = assetLoaded;
-  appleImage.onload = assetLoaded;
-  squirrelImage.onload = assetLoaded;
+    let loadedAssets = 0;
 
-  class Character {
-    constructor(width, height, image, x, y) {
-      this.width = width;
-      this.height = height;
-      this.image = image;
-      this.x = x;
-      this.y = y;
-      this.speedX = 0;
-      this.speedY = 0;
+// Tüm görseller yükledikten sonra oyunu başlat
+    function assetLoaded() {
+      loadedAssets++;
+      if (loadedAssets === 3) {
+        initializeCharacter();
+        placeApple();
+        drawStartScreen();
+      }
     }
 
-    update() {
-      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+// Görseller yüklendiğinde çalışacak fonksiyonlar
+    bgImage.onload = assetLoaded;
+    appleImage.onload = assetLoaded;
+    squirrelImage.onload = assetLoaded;
+
+// Karakter sınıfı tanımı 
+    class Character {
+      constructor(width, height, image, x, y) {
+        this.width = width;
+        this.height = height;
+        this.image = image;
+        this.x = x;
+        this.y = y;
+        this.speedX = 0;
+        this.speedY = 0;
+      }
+
+// Karakteri çiz
+      draw() {
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      }
+
+// Konumu güncelle
+     updatePosition() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+      }
+
+// Elmaya temas kontrolü 
+      isTouchingApple() {
+        return (
+          appleX >= this.x &&
+          appleX + appleSize <= this.x + this.width &&
+          appleY >= this.y &&
+          appleY + appleSize <= this.y + this.height
+        );
+      }
     }
 
-    newPosition() {
-      this.x += this.speedX;
-      this.y += this.speedY;
+// Karakteri başlat
+    function initializeCharacter() {
+      character = new Character(150, 150, squirrelImage, 0, 0);
     }
 
-    touchesApple() {
-      return (
-        appleX >= this.x &&
-        appleX + appleWidth <= this.x + this.width &&
-        appleY >= this.y &&
-        appleY + appleHeight <= this.y + this.height
+// Elmayı rastgele yerleştir
+    function placeApple() {
+      appleX = Math.random() * (canvas.width - appleSize);
+      appleY = Math.random() * (canvas.height - appleSize);
+    }
+
+// Skoru güncelle ve kazanma durumu kontorlü
+    function updateScore() {
+      score++;
+      scoreBoard.textContent = "Skor: " + score;
+
+      if (score === 8) {
+        endGame(true); // Oyuncu kazandı
+      }
+    }
+
+// Klavye kontrol ayarları 
+    function setupKeyboard() {
+      window.addEventListener("keydown", (e) => {
+        if ([37, 38, 39, 40].includes(e.keyCode)) {
+          e.preventDefault();
+          keys[e.keyCode] = true;
+        }
+      });
+
+      window.addEventListener("keyup", (e) => {
+        if ([37, 38, 39, 40].includes(e.keyCode)) {
+          keys[e.keyCode] = false;
+        }
+      });
+    }
+
+// Karakter ile engel çarpışma kontrolü
+    function detectCollision() {
+      return obstacles.some(obs =>
+        character.x < obs.x + obs.width - 20 &&
+        character.x + character.width - 20 > obs.x &&
+        character.y < obs.y + obs.height - 20 &&
+        character.y + character.height - 20 > obs.y
       );
     }
-  }
 
-  function initializeCharacter() {
-    character = new Character(150, 150, squirrelImage, 0, 0);
-  }
+// Engellerin hareketi
+    function moveObstacles() {
+      for (let obs of obstacles) {
+        obs.x += obs.speedX;
+        obs.y += obs.speedY;
 
-  function randomizeApple() {
-    appleX = Math.floor(Math.random() * (canvas.width - appleWidth));
-    appleY = Math.floor(Math.random() * (canvas.height - appleHeight));
-  }
+        // Ekran sınırlarında yön değiştir
+        if (obs.x <= 0 || obs.x + obs.width >= canvas.width) {
+          obs.speedX *= -1;
+        }
+        if (obs.y <= 0 || obs.y + obs.height >= canvas.height) {
+          obs.speedY *= -1;
+        }
+      }
+    }
 
-  function increaseScore() {
-    score++;
-    scoreBoard.textContent = "Score: " + score;
+// Oyun ekranını sürekli güncelle
+    function updateGameArea() {
+      if (gameOver) return;
 
-    if (score === 3) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(bgImage, 0, 0);
+      ctx.drawImage(appleImage, appleX, appleY, appleSize, appleSize);
+
+      moveObstacles();
+
+    // Engelleri çiz
+      ctx.fillStyle = "brown";
+      obstacles.forEach(obs => ctx.fillRect(obs.x, obs.y, obs.width, obs.height));
+    
+    // Karakter hareketini kontrol et
+      character.speedX = 0;
+      character.speedY = 0;
+
+      if (keys[37]) character.speedX = -4; // Sol
+      if (keys[39]) character.speedX = 4; // Sağ
+      if (keys[38]) character.speedY = -4; // Yukarı
+      if (keys[40]) character.speedY = 4; // Aşağı
+
+      ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+      ctx.shadowBlur = 20;
+
+      character.updatePosition();
+      character.draw();
+
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0;
+
+    // Elma toplanırsa
+      if (character.isTouchingApple()) {
+        placeApple();
+        updateScore();
+        collectSound.currentTime = 0;
+        collectSound.play();
+      }
+
+    // Engel çarpışması
+      if (detectCollision()) {
+        endGame(false); // Oyuncu kaybetti
+      }
+    }
+
+// Oyunu başlat
+    function startGame() {
+      score = 0;
+      gameOver = false;
+      timeLeft = 20;
+
+      timerDisplay.textContent = "Kalan Zaman: " + timeLeft;
+      scoreBoard.textContent = "Skor: 0";
+      winMessage.style.display = "none";
+      restartButton.style.display = "none";
+
+      initializeCharacter();
+      placeApple();
+      setupKeyboard();
+      backgroundMusic.play().catch(() => {});
+
+    // Oyun döngüsü
+      gameInterval = setInterval(updateGameArea, 20);
+
+    // Geri sayım başlat 
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = "Kalan Zaman: " + timeLeft;
+        if (timeLeft <= 0) {
+          endGame(false, true); // Süre doldu 
+        }
+      }, 1000);
+    }
+
+// Oyun bitiş ekranı 
+    function endGame(won, timeout = false) {
       gameOver = true;
       clearInterval(gameInterval);
-      waterSound.pause();
-      winMessage.style.display = "block";
-      restartButton.style.display = "inline-block";
-    }
-  }
+      clearInterval(timerInterval);
+      backgroundMusic.pause();
 
-  function setupControls() {
-    window.addEventListener("keydown", function (e) {
-      if ([37, 38, 39, 40].includes(e.keyCode)) {
-        e.preventDefault();
-        keys[e.keyCode] = true;
-      }
-    });
-
-    window.addEventListener("keyup", function (e) {
-      if ([37, 38, 39, 40].includes(e.keyCode)) {
-        keys[e.keyCode] = false;
-      }
-    });
-  }
-
-  function hitsAnyObstacle() {
-    return obstacles.some(obs =>
-      character.x < obs.x + obs.width-20 &&
-      character.x + character.width-20 > obs.x &&
-      character.y < obs.y + obs.height-20 &&
-      character.y + character.height-20 > obs.y
-    );
-  }
-
-  function updateObstacles() {
-    for (let obs of obstacles) {
-      obs.x += obs.speedX;
-      obs.y += obs.speedY;
-
-      if (obs.x <= 0 || obs.x + obs.width >= canvas.width) {
-        obs.speedX *= -1;
+      if (won) {
+        winMessage.style.display = "block"; // Kazanma mesajı göster
+      } else {
+        gameOverSound.play();
+        ctx.fillStyle = "red";
+        ctx.font = "bold 48px sans-serif";
+        const message = timeout ? "Zaman Doldu!" : "Oyun Bitti!";
+        ctx.fillText(message, canvas.width / 2 - 140, canvas.height / 2);
       }
 
-      if (obs.y <= 0 || obs.y + obs.height >= canvas.height) {
-        obs.speedY *= -1;
-      }
-    }
-  }
-
-  function updateGameArea() {
-    if (gameOver) return;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(bgImage, 0, 0);
-    ctx.drawImage(appleImage, appleX, appleY, appleWidth, appleHeight);
-
-    updateObstacles();
-
-    ctx.fillStyle = "brown";
-    for (let obs of obstacles) {
-      ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
-    }
-
-    character.speedX = 0;
-    character.speedY = 0;
-    const moveSpeed = 4;
-    if (keys[37]) character.speedX = -moveSpeed;
-    if (keys[39]) character.speedX = moveSpeed;
-    if (keys[38]) character.speedY = -moveSpeed;
-    if (keys[40]) character.speedY = moveSpeed;
-
-    ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
-    ctx.shadowBlur = 20;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 4;
-
-    character.newPosition();
-    character.update();
-
-    if (character.touchesApple()) {
-      randomizeApple();
-      increaseScore();
-      collectSound.currentTime = 0;
-      collectSound.play();
-    }
-
-    if (hitsAnyObstacle()) {
-      gameOver = true;
-      clearInterval(gameInterval);
-      waterSound.pause();
-      gameOverSound.play();
-      ctx.fillStyle = "red";
-      ctx.font = "bold 48px sans-serif";
-      ctx.fillText("Game Over!", canvas.width / 2 - 140, canvas.height / 2);
       restartButton.style.display = "inline-block";
     }
 
-    ctx.shadowColor = "transparent";
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-  }
+// Başlangıç ekranı çiz
+    function drawStartScreen() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(bgImage, 0, 0);
+      ctx.fillStyle = "black";
+      ctx.font = "bold 36px sans-serif";
+      ctx.fillText("Click Start to Begin", canvas.width / 2 - 180, canvas.height / 2);
+    }
 
-  function startGame() {
-    gameOver = false;
-    score = 0;
-    winMessage.style.display = "none";
-    scoreBoard.textContent = "Score: 0";
-    initializeCharacter();
-    randomizeApple();
-    setupControls();
-    waterSound.play().catch(e => console.log("Autoplay blocked"));
-    gameInterval = setInterval(updateGameArea, 20);
-  }
-
-  function drawStartScreen() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(bgImage, 0, 0);
-    ctx.fillStyle = "black";
-    ctx.font = "bold 36px sans-serif";
-    ctx.fillText("Click Start to Begin", canvas.width / 2 - 180, canvas.height / 2);
-  }
-
-  function restartGame() {
-    restartButton.style.display = "none";
-    startGame();
-  }
-
-  startButton.addEventListener("click", () => {
+// Başlat butonu işlevi
+    startButton.addEventListener("click", () => {
+    document.getElementById("howToPlay").style.display = "none";
     startButton.style.display = "none";
     restartButton.style.display = "none";
     startGame();
-  });
+    });
 
-  restartButton.addEventListener("click", () => {
-    restartGame();
-  });
-</script>
+// Yeniden başlatma
+    restartButton.addEventListener("click", () => {
+      startGame();
+    });
+
+  </script>
 
 </body>
 </html>
