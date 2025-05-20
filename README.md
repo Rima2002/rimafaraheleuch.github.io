@@ -13,7 +13,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 
 ## Oyun Kuralları ve Mekanikleri
 -	Amaç: Oyuncu, 20 saniye içinde 8 elma toplamalıdır.
-  ![imqge alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot0.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot0.PNG)
 -	Kontroller: Yön tuşları ile hareket sağlanır (↑ ↓ ← →).
 -	Kazanç: Oyuncu 8 elmayı süresi dolmadan toplarsa oyunu kazanır.
 -	Kaybetme: Oyuncu bir engelle çarpışırsa ya da süresi dolarsa oyun biter.
