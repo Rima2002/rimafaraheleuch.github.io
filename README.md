@@ -13,7 +13,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 -	Görseller: Sincap karakteri, elma ve arka plan.
 - Sesler: Arka plan müziği, elma toplama sesi, oyun bitiş sesi.
 
-## Oyun Kuralları ve Mekanikleri
+## 3. Oyun Kuralları ve Mekanikleri
 -	Amaç: Oyuncu, 20 saniye içinde 8 elma toplamalıdır.
 -	Kontroller: Yön tuşları ile hareket sağlanır (↑ ↓ ← →).
 -	Kazanç: Oyuncu 8 elmayı süresi dolmadan toplarsa oyunu kazanır.
@@ -29,5 +29,12 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 -	Engeller: Rastgele hareket eden kahverengi bloklar.
 -	Elma: Haritada rastgele konumlanan, sabit boyutlu hedef.
 
+## 4. Oyunun İşleyişi
+1.	Oyuncu “Oyunu Başlat” butonuna tıkladığında oyun başlar.
+2.	Süre geri saymaya başlar (20 saniye).
+3.	Sincap, yön tuşlarıyla hareket eder.
+4.	Elma toplanınca skor artar ve yeni elma haritada rastgele bir yere yerleştirilir.
+5.	Skor 8’e ulaştığında “🎉 Kazandın!” mesajı gösterilir.
+6.	Oyun bittiğinde “Oyunu Yeniden Başlat” butonu aktif olur.
 
 
