@@ -9,11 +9,11 @@ JS Canvas üzerinde Müziği tanımladıktan sonra döngüsü nasıl yapılır k
 -	Web Audio API ile → source.loop = true yap.
 ```
 ## Prompt#2:
-Peki tüm görseller yükledikten sonra "assetLoaded" fonksiyonu oyunu nasıl başlatabilirim kısacası .
+Peki tüm görseller yükledikten sonra "assetLoaded" fonksiyonu ile oyunu nasıl başlatabilirim kısacası .
 
 ## Cevap#2:
-Harika bir soru! Oyunlarda tüm görseller (ve sesler) yüklendikten sonra oyunu başlatmak için genellikle bir yükleme sayacı (asset counter) kullanılır. Bu sayede tüm asset’ler (resimler, sesler, vs.) yüklendiğinde tek bir fonksiyon (startGame() gibi) çağrılır.
-Kısaca:
+> Harika bir soru! Oyunlarda tüm görseller (ve sesler) yüklendikten sonra oyunu başlatmak için genellikle bir yükleme sayacı (asset counter) kullanılır. Bu sayede tüm asset’ler (resimler, sesler, vs.) yüklendiğinde tek bir fonksiyon (startGame() gibi) çağrılır.
+``` Kısaca:
 1.	Kaç görselin yükleneceğini bil.
 2.	Her yükleme tamamlandığında assetLoaded() fonksiyonu çalışsın.
 3.	Tüm asset’ler yüklendiğinde startGame() fonksiyonu çağrılsın.
@@ -21,7 +21,7 @@ Kısaca:
 *	assetLoaded() her görsel yüklendiğinde çağrılır.
 *	İçinde assetsLoaded sayısını takip edersin.
 *	Hepsi tamamlandığında startGame() ile oyun başlar.
-
+```
 ## Prompt#3:
 Bir oyunda Skoru (1 artırarak ) textContent kullanarak nasıl güncelleyebilirim kısacası
 Cevap#3:
