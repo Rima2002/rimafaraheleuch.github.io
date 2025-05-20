@@ -43,7 +43,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 *	Kazanma mesajı ve oyun açıklama kutusu.
 *	Görsel olarak sade ve kullanıcı dostu tasarım.
   
-> [!NOTLAR]
+> [!NOTE]
 > Seviye sistemi: Elma sayısını ve engel hızını artırarak zorluk seviyesi ayarlanabilir.
 > Can sistemi: Engellere birden fazla çarpma hakkı tanınabilir.
 > Daha fazla ses efekti: Etkileşimli sesler oyun deneyimini zenginleştirir.
