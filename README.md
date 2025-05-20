@@ -8,8 +8,8 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 -	JavaScript: Oyun mekaniği, hareket, skor sistemi, çarpışma tespiti ve zamanlayıcı işlemleri için kullanıldı.
 -	HTML5 <canvas>: Oyun grafikleri çizimi için ana platform olarak kullanıldı.
 -	Multimedya:
-o	Görseller: Sincap karakteri, elma ve arka plan.
-o	Sesler: Arka plan müziği, elma toplama sesi, oyun bitiş sesi.
+*	Görseller: Sincap karakteri, elma ve arka plan.
+*	Sesler: Arka plan müziği, elma toplama sesi, oyun bitiş sesi.
 
 
 
