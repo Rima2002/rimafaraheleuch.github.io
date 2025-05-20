@@ -3,8 +3,8 @@
 JS Canvas üzerinde Müziği tanımladıktan sonra döngüsü nasıl yapılır kısacası
 
 ## Cevap#1:
-JavaScript ile <canvas> üzerinde bir müzik çalarken bu müziğin döngüye alınması (loop edilmesi) oldukça basittir. Müzik dosyasını tanımladıktan sonra, loop özelliğini true yaparak bunu sağlayabilirsin.
-Kısaca:
+> JavaScript ile <canvas> üzerinde bir müzik çalarken bu müziğin döngüye alınması (loop edilmesi) oldukça basittir. Müzik dosyasını tanımladıktan sonra, loop özelliğini true yaparak bunu sağlayabilirsin.
+```Kısaca:
 *	HTML <audio> ile → loop özelliğini kullan.
 *	Web Audio API ile → source.loop = true yap.
 
