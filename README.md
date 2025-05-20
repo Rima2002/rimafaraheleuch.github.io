@@ -3,8 +3,7 @@
 Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D macera oyunudur. Oyuncu, yön tuşları ile bir sincabı kontrol eder. Amaç, 20 saniye içerisinde 8 elmayı toplamak ve kahverengi engellere çarpmadan oyunu kazanmaktır.
 
 ## 2. Kullanılan Teknolojiler
-- evet
-•	HTML5: Sayfa yapısı ve oyun alanı (canvas) oluşturmak için kullanıldı.
+-	HTML5: Sayfa yapısı ve oyun alanı (canvas) oluşturmak için kullanıldı.
 •	CSS3: Oyun tasarımı, butonlar ve kullanıcı arayüzü düzenlemeleri için kullanıldı.
 •	JavaScript: Oyun mekaniği, hareket, skor sistemi, çarpışma tespiti ve zamanlayıcı işlemleri için kullanıldı.
 •	HTML5 <canvas>: Oyun grafikleri çizimi için ana platform olarak kullanıldı.
