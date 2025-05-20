@@ -5,8 +5,8 @@ JS Canvas üzerinde Müziği tanımladıktan sonra döngüsü nasıl yapılır k
 ## Cevap#1:
 > JavaScript ile <canvas> üzerinde bir müzik çalarken bu müziğin döngüye alınması (loop edilmesi) oldukça basittir. Müzik dosyasını tanımladıktan sonra, loop özelliğini true yaparak bunu sağlayabilirsin.
 ```Kısaca:
--	HTML <audio> ile → loop özelliğini kullan.
--	Web Audio API ile → source.loop = true yap.
+*	HTML <audio> ile → loop özelliğini kullan.
+*	Web Audio API ile → source.loop = true yap.
 ```
 ## Prompt#2:
 Peki tüm görseller yükledikten sonra "assetLoaded" fonksiyonu ile oyunu nasıl başlatabilirim kısacası .
@@ -26,12 +26,14 @@ Peki tüm görseller yükledikten sonra "assetLoaded" fonksiyonu ile oyunu nası
 ```
 ## Prompt#3:
 Bir oyunda Skoru (1 artırarak ) textContent kullanarak nasıl güncelleyebilirim kısacası
-Cevap#3:
-Bir oyunda skoru textContent kullanarak 1'er 1'er artırmak için yapman gerekenler çok basit:
-Özet:
+
+## Cevap#3:
+> Bir oyunda skoru textContent kullanarak 1'er 1'er artırmak için yapman gerekenler çok basit:
+``` Özet:
 *	textContent DOM üzerindeki metni değiştirir.
 *	score += 1 ile sayı artar.
   	element.textContent = "Skor: " + score ile ekrana yansıtılır.
+```
 
 ## Prompt#4:
 Klavye kontrol ayarları, yani ok tuşları,'keyup' 'keydown' ile 'keyCode' (hepsini bir Array içinde koyarak) değerleri kullanarak nasıl yapabilirim kısacası.
