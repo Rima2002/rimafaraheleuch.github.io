@@ -1,6 +1,6 @@
 # Sincap – Elma Toplama Oyunu
 ## 1. Proje Amacı
-Bu proje, > HTML5 Canvas ve JavaScript > kullanılarak oluşturulmuş basit bir 2D macera oyunudur. Oyuncu, yön tuşları ile bir sincabı kontrol eder. Amaç, 20 saniye içerisinde 8 elmayı toplamak ve kahverengi engellere çarpmadan oyunu kazanmaktır.
+Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D macera oyunudur. Oyuncu, yön tuşları ile bir sincabı kontrol eder. Amaç, 20 saniye içerisinde 8 elmayı toplamak ve kahverengi engellere çarpmadan oyunu kazanmaktır.
 
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot0.PNG)
   
