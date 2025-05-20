@@ -7,7 +7,7 @@ JS Canvas üzerinde Müziği tanımladıktan sonra döngüsü nasıl yapılır k
 ```Kısaca:
 *	HTML <audio> ile → loop özelliğini kullan.
 *	Web Audio API ile → source.loop = true yap.
-
+```
 ## Prompt#2:
 Peki tüm görseller yükledikten sonra "assetLoaded" fonksiyonu oyunu nasıl başlatabilirim kısacası .
 
