@@ -44,7 +44,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 *	Görsel olarak sade ve kullanıcı dostu tasarım.
   
 > [!NOTE]
-> Seviye sistemi: Elma sayısını ve engel hızını artırarak zorluk seviyesi ayarlanabilir.
-> Can sistemi: Engellere birden fazla çarpma hakkı tanınabilir.
-> Daha fazla ses efekti: Etkileşimli sesler oyun deneyimini zenginleştirir.
-> Tema değişikliği: Farklı arka planlar ve karakter seçenekleri sunulabilir.
+> - Seviye sistemi: Elma sayısını ve engel hızını artırarak zorluk seviyesi ayarlanabilir.
+> - Can sistemi: Engellere birden fazla çarpma hakkı tanınabilir.
+> - Daha fazla ses efekti: Etkileşimli sesler oyun deneyimini zenginleştirir.
+> - Tema değişikliği: Farklı arka planlar ve karakter seçenekleri sunulabilir.
