@@ -48,3 +48,6 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 > - Can sistemi: Engellere birden fazla çarpma hakkı tanınabilir.
 > - Daha fazla ses efekti: Etkileşimli sesler oyun deneyimini zenginleştirir.
 > - Tema değişikliği: Farklı arka planlar ve karakter seçenekleri sunulabilir.
+
+## 6. Sonuç
+“Sincap: Elma Toplama” oyunu, temel düzeyde oyun geliştirme ve JavaScript ile interaktif uygulama yapma konusunda güçlü bir örnektir. Oyun hem eğlenceli hem de geliştirilmeye açık bir yapıya sahiptir.
