@@ -37,6 +37,9 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 5.	Skor 8’e ulaştığında “🎉 Kazandın!” mesajı gösterilir.
 6.	Oyun bittiğinde “Oyunu Yeniden Başlat” butonu aktif olur.
 
+Oyun Linki: [GitHub Pages](https://rima2002.github.io/rimafaraheleuch.github.io/)
+Youtube Linki:
+
 ## 5. Kullanıcı Arayüzü Özellikleri
 *	Skor ve süre göstergeleri.
 *	Başlatma ve yeniden başlatma butonları.
