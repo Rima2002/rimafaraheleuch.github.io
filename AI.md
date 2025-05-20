@@ -13,10 +13,12 @@ Peki tüm görseller yükledikten sonra "assetLoaded" fonksiyonu ile oyunu nası
 
 ## Cevap#2:
 > Harika bir soru! Oyunlarda tüm görseller (ve sesler) yüklendikten sonra oyunu başlatmak için genellikle bir yükleme sayacı (asset counter) kullanılır. Bu sayede tüm asset’ler (resimler, sesler, vs.) yüklendiğinde tek bir fonksiyon (startGame() gibi) çağrılır.
-``` Kısaca:
+>  Kısaca:
 1.	Kaç görselin yükleneceğini bil.
 2.	Her yükleme tamamlandığında assetLoaded() fonksiyonu çalışsın.
 3.	Tüm asset’ler yüklendiğinde startGame() fonksiyonu çağrılsın.
+
+```
 Özet:
 *	assetLoaded() her görsel yüklendiğinde çağrılır.
 *	İçinde assetsLoaded sayısını takip edersin.
