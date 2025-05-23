@@ -3,47 +3,50 @@
 Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D macera oyunudur. Oyuncu, yön tuşları ile bir sincabı kontrol eder. Amaç, 30 saniye içerisinde 10 elmayı toplamak ve engellere çarpmadan oyunu kazanmaktır.
 
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/1.PNG)
+
+
+  **Seçtiğim oyun:**![ORB Inc.] (https://angry-armadillo-games.itch.io/bricker-breaks-free)
   
 ## 2. Kullanılan Teknolojiler
 -	**HTML5:** Sayfa yapısı ve oyun alanı (canvas) oluşturmak için kullandım.
 -	**CSS3:** Oyun tasarımı, butonlar ve kullanıcı arayüzü düzenlemeleri için kullandım.
 -	**JavaScript:** Oyun mekaniği, hareket, skor sistemi, çarpışma tespiti ve zamanlayıcı işlemleri için kullandım.
 -	**HTML5 <canvas>:** Oyun grafikleri çizimi için ana platform olarak kullandım.
-**-	Görseller:** Sincap karakteri, elma, sarı robotlar, UFO ve arka plan.
-- Sesler: Arka plan müziği, elma toplama sesi, oyun bitiş sesi.
+-	**Görseller:** Sincap karakteri, elma, sarı robotlar, UFO ve arka plan.
+- **Sesler:** Arka plan müziği, elma toplama sesi, oyun bitiş sesi.
 
 ## 3. Oyun Kuralları ve Mekanikleri
--	Amaç: Oyuncu, 30 saniye içinde 10 elma toplamalıdır.
--	Kontroller: Yön tuşları ile hareket sağlanır (↑ ↓ ← →).
--	Kazanç: Oyuncu 10 elmayı süresi dolmadan toplarsa oyunu kazanır.
+-	**Amaç:** Oyuncu, 30 saniye içinde 10 elma toplamalıdır.
+-	**Kontroller:** Yön tuşları ile hareket sağlanır (↑ ↓ ← →).
+-	**Kazanç:** Oyuncu 10 elmayı süresi dolmadan toplarsa oyunu kazanır.
 
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot2.PNG)
 
--	Kaybetme: Oyuncu bir engelle çarpışırsa ya da süresi dolarsa oyun biter.
--	
+-	**Kaybetme:** Oyuncu bir engelle çarpışırsa ya da süresi dolarsa oyun biter.
+  
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot3.PNG) 
  	
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot5.PNG)
 
--	Engeller: Kırmızı ışın yayan UFO'lar (seni kendine çeker) ve sarı robotların attığı mermiler.
--	Elma: Haritada rastgele konumlanan, sabit boyutlu hedef.
+-	**Engeller:** Kırmızı ışın yayan UFO'lar (seni kendine çeker) ve sarı robotların attığı mermiler.
+-	**Elma:** Haritada rastgele konumlanan, sabit boyutlu hedef.
 
 ## 4. Oyunun İşleyişi
-1.	Oyuncu “Oyunu Başlat” butonuna tıkladığında oyun başlar.
-2.	Süre geri saymaya başlar (30 saniye).
+1.	Oyuncu **“Oyunu Başlat”** butonuna tıkladığında oyun başlar.
+2.	Süre geri saymaya başlar **(30 saniye)**.
 3.	Sincap, yön tuşlarıyla hareket eder ve engellerden kaçar.
 4.	Elma toplanınca skor artar ve yeni elma haritada rastgele bir yere yerleştirilir.
-5.	Skor 10’a ulaştığında “🎉 Kazandın!” mesajı gösterilir.
-6.	Oyun bittiğinde “Oyunu Yeniden Başlat” butonu aktif olur.
+5.	**Skor 10**’a ulaştığında **“🎉 Kazandın!”** mesajı gösterilir.
+6.	Oyun bittiğinde **“Oyunu Yeniden Başlat”** butonu aktif olur.
 
 Oyun Linki: [GitHub Pages](https://rima2002.github.io/rimafaraheleuch.github.io/)
 
 Youtube Linki: [Youtube Video](https://www.youtube.com/watch?v=h3-dopV331w)
 
 ## 5. Kullanıcı Arayüzü Özellikleri
-*	Skor ve süre göstergeleri.
+*	Skor ve geri sayım sayacı.
 *	Başlatma ve yeniden başlatma butonları.
-*	Kazanma mesajı ve oyun açıklama kutusu.
+*	Kazanma mesajı ve oyun talimatları .
 *	Görsel olarak sade ve kullanıcı dostu tasarım.
   
 > [!NOTE]
