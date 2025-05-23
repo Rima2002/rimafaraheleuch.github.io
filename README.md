@@ -10,9 +10,10 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 > Orbinc'in çekirdek mekaniği olan "yerçekimi alanlarından kaçarak enerji toplama" oyunu minimalist tasarımı ve basit ama bağımlılık yapan şekilde kendi kültürel öğelerimi katabileceğim bir versiyon oluşturmak istedim. Orbinc'teki uzay teması yerine Türk ormanlarında geçen bir sincap hikayesi kurguladım.
 
 **Entegre Ettiğim Mekanikler:**
-a - **Çekim Alanları (Orbinc'teki Kara Delikler):** Orbinc'teki kara deliklerin çekim gücünü, UFO'ların "kırmızı ışın" efektiyle uyarladım.
-b - **Toplanabilir Nesneler (Orbinc'te Enerji Küreleri):** Enerji küreleri yerine yeşil elmalar koydum. 
-c - **Tehlikeler (Orbinc'teki Düşmanlar):** Statik düşmanlar yerine hareketli UFO'lar ve mermi atan robotlar ekledim
+
+- **Çekim Alanları (Orbinc'teki Kara Delikler):** Orbinc'teki kara deliklerin çekim gücünü, UFO'ların "kırmızı ışın" efektiyle uyarladım.
+- **Toplanabilir Nesneler (Orbinc'te Enerji Küreleri):** Enerji küreleri yerine yeşil elmalar koydum. 
+- **Tehlikeler (Orbinc'teki Düşmanlar):** Statik düşmanlar yerine hareketli UFO'lar ve mermi atan robotlar ekledim
 
 > [!NOTE]
 > Yeni Katkılarım:
