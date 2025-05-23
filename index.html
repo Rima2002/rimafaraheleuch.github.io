@@ -16,28 +16,23 @@
       background-color: rgb(169, 236, 169);
       font-family: 'Segoe UI', sans-serif;
     }
-
     canvas {
       border: 2px solid #aaa;
       background-color: #f1f1f1;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-
     #scoreBoard {
       font-size: 24px;
       font-weight: bold;
       margin: 10px 0;
     }
-
     #timer {
       font-size: 20px;
       color: #444;
     }
-
     #controls {
       margin: 15px 0;
     }
-
     button {
       font-size: 18px;
       padding: 10px 30px;
@@ -49,20 +44,16 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
     button:hover {
       background-color: #388E3C;
     }
-
     #restartButton {
       display: none;
       background-color: #f44336;
     }
-
     #restartButton:hover {
       background-color: #d32f2f;
     }
-
     #winMessage {
       display: none;
       position: fixed;
@@ -79,321 +70,92 @@
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
       z-index: 999;
     }
-
-
     #howToPlay {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        border: 3px solid #4CAF50;
-        border-radius: 16px;
-        padding: 30px 40px;
-        font-size: 20px;
-        color: #333;
-        text-align: center;
-        box-shadow: 0 0 25px rgba(0,0,0,0.2);
-        z-index: 1000;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      border: 3px solid #4CAF50;
+      border-radius: 16px;
+      padding: 30px 40px;
+      font-size: 20px;
+      color: #333;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0,0,0,0.2);
+      z-index: 1000;
     }
-
     #howToPlay h2 {
-        color: #4CAF50;
-        margin-top: 0;
+      color: #4CAF50;
+      margin-top: 0;
     }
-
   </style>
 </head>
 <body>
-
-<!-- Skor ve zaman gösterisi -->
+  <!-- Oyunun arayüz elemanları -->
   <div id="scoreBoard">Skor: 0</div>
-  <div id="timer">Kalan Zaman: 20s</div>
-
-<!-- Oyun kontrol butonları -->
+  <div id="timer">Kalan Zaman: 30s</div>
   <div id="controls">
     <button id="startButton">Oyunu Başlat</button>
     <button id="restartButton">Oyunu Yeniden Başla</button>
   </div>
-
-<!-- Oyunucuya oyun açıklaması gösterisi -->
+  <!-- Oyun talimatları -->
   <div id="howToPlay">
-  <h2>Nasıl Oynanır</h2>
-    <p>
-        🍏 Kazanmak için <strong>8 Elma</strong> topla.<br>
-        🕹️ <strong>Yön tuşları </strong>kullanarak hareket et.<br>
-        🚫 Kahverengi bloklardan kaçın — bir vuruş oyunu bitirir.<br>
-        ⏰ Bunu yapmak için <strong>20 saniyen</strong> var!</var>!
-    </p>
-    <p><em>Başlamak için “Oyunu Başlat” tuşuna tıkla.</em></p>
+    <h2>Nasıl Oynanır</h2>
+    <p>🍏 30 saniyede 10 Elma topla ve kazan!<br>🕹️ Yön tuşları ile sincabı hareket ettir.<br>Şunlardan kaç:<br>* 🚫Kırmızı ışın yayan UFO'lar (seni kendine çeker).<br>* 🤖 Sarı robotların attığı mermiler. </p>
+    <p><em>Başlamak için "Oyunu Başlat"a tıkla.</em></p>
   </div>
-
-<!-- Oyun Alanı -->
   <canvas id="canvas" width="900" height="590"></canvas>
-
-<!-- Kazanma mesajı -->
   <div id="winMessage">🎉 Kazandın!</div>
-
   <script>
-// Canvas ve bağlamı alınır
+    // Oyun elemanları
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
-
-//UI elementleri
     const scoreBoard = document.getElementById("scoreBoard");
     const startButton = document.getElementById("startButton");
     const restartButton = document.getElementById("restartButton");
     const winMessage = document.getElementById("winMessage");
     const timerDisplay = document.getElementById("timer");
 
-// Görseller ve sesler tanımlanır
-    const bgImage = new Image();
-    const appleImage = new Image();
-    const squirrelImage = new Image();
+    // Görselleri 
+    const bgImage = new Image(); // Arkaplan resmi
+    const appleImg = new Image(); // Elma resmi
+    const squirrelImg = new Image(); // Sincap resmi
+    const shooterImg = new Image(); // Sarı robotlar resmi
+    const ufoImg = new Image(); // UFO resmi
 
-    bgImage.src = "images/Background.png";
-    appleImage.src = "images/elma.png";
-    squirrelImage.src = "images/character.png";
+    // Görsellerin yolları
+    ufoImg.src = "images/ufo.png"; 
+    bgImage.src = "images/background.png";
+    appleImg.src = "images/elma.png";
+    squirrelImg.src = "images/character.png";
+    shooterImg.src = "images/yellow_shooter.png";
 
+    // Ses efektleri
     const collectSound = new Audio("audio/collect_sound.mp3");
-    const backgroundMusic = new Audio("audio/background_music.mp3");
+    const bgMusic = new Audio("audio/background_music.mp3");
     const gameOverSound = new Audio("audio/gameover.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.4;
 
-// Müzik döngüde çalsın
-    backgroundMusic.loop = true;
-    backgroundMusic.volume = 0.4;
-
-// Oyun durumu değişkenleri
-    let character;
-    let keys = [];
-    let score = 0;
-    let gameOver = false;
-    let gameInterval;
-    let timerInterval;
-    let timeLeft = 20;
-
-// Elmanın konumu 
-    let appleX, appleY;
-    const appleSize = 70;
-
-// Engeller (hareketli bloklar)
-    const obstacles = [
-      { x: 400, y: 350, width: 80, height: 80, speedX: 3, speedY: 0 },
-      { x: 200, y: 100, width: 80, height: 80, speedX: 0, speedY: 3 },
-      { x: 700, y: 200, width: 80, height: 80, speedX: 0, speedY: 2 }
-    ];
-
-    let loadedAssets = 0;
-
-// Tüm görseller yükledikten sonra oyunu başlat
-    function assetLoaded() {
-      loadedAssets++;
-      if (loadedAssets === 3) {
-        initializeCharacter();
-        placeApple();
-        drawStartScreen();
+    // Görseller yüklendikten sonra başlangıç ekranını göster
+    let loadedImages = 0;
+    function checkImagesLoaded() {
+      loadedImages++;
+      if (loadedImages === 3) {
+        initPlayer();
+        spawnApple();
+        showStartScreen();
       }
     }
 
-// Görseller yüklendiğinde çalışacak fonksiyonlar
-    bgImage.onload = assetLoaded;
-    appleImage.onload = assetLoaded;
-    squirrelImage.onload = assetLoaded;
+    // Görsel yükleme olay dinleyicileri
+    bgImage.onload = checkImagesLoaded;
+    appleImg.onload = checkImagesLoaded;
+    squirrelImg.onload = checkImagesLoaded;
 
-// Karakter sınıfı tanımı 
-    class Character {
-      constructor(width, height, image, x, y) {
-        this.width = width;
-        this.height = height;
-        this.image = image;
-        this.x = x;
-        this.y = y;
-        this.speedX = 0;
-        this.speedY = 0;
-      }
-
-// Karakteri çiz
-      draw() {
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-      }
-
-// Konumu güncelle
-     updatePosition() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-      }
-
-// Elmaya temas kontrolü 
-      isTouchingApple() {
-        return (
-          appleX >= this.x &&
-          appleX + appleSize <= this.x + this.width &&
-          appleY >= this.y &&
-          appleY + appleSize <= this.y + this.height
-        );
-      }
-    }
-
-// Karakteri başlat
-    function initializeCharacter() {
-      character = new Character(150, 150, squirrelImage, 0, 0);
-    }
-
-// Elmayı rastgele yerleştir
-    function placeApple() {
-      appleX = Math.random() * (canvas.width - appleSize);
-      appleY = Math.random() * (canvas.height - appleSize);
-    }
-
-// Skoru güncelle ve kazanma durumu kontorlü
-    function updateScore() {
-      score++;
-      scoreBoard.textContent = "Skor: " + score;
-
-      if (score === 8) {
-        endGame(true); // Oyuncu kazandı
-      }
-    }
-
-// Klavye kontrol ayarları 
-    function setupKeyboard() {
-      window.addEventListener("keydown", (e) => {
-        if ([37, 38, 39, 40].includes(e.keyCode)) {
-          e.preventDefault();
-          keys[e.keyCode] = true;
-        }
-      });
-
-      window.addEventListener("keyup", (e) => {
-        if ([37, 38, 39, 40].includes(e.keyCode)) {
-          keys[e.keyCode] = false;
-        }
-      });
-    }
-
-// Karakter ile engel çarpışma kontrolü
-    function detectCollision() {
-      return obstacles.some(obs =>
-        character.x < obs.x + obs.width - 20 &&
-        character.x + character.width - 20 > obs.x &&
-        character.y < obs.y + obs.height - 20 &&
-        character.y + character.height - 20 > obs.y
-      );
-    }
-
-// Engellerin hareketi
-    function moveObstacles() {
-      for (let obs of obstacles) {
-        obs.x += obs.speedX;
-        obs.y += obs.speedY;
-
-        // Ekran sınırlarında yön değiştir
-        if (obs.x <= 0 || obs.x + obs.width >= canvas.width) {
-          obs.speedX *= -1;
-        }
-        if (obs.y <= 0 || obs.y + obs.height >= canvas.height) {
-          obs.speedY *= -1;
-        }
-      }
-    }
-
-// Oyun ekranını sürekli güncelle
-    function updateGameArea() {
-      if (gameOver) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(bgImage, 0, 0);
-      ctx.drawImage(appleImage, appleX, appleY, appleSize, appleSize);
-
-      moveObstacles();
-
-    // Engelleri çiz
-      ctx.fillStyle = "brown";
-      obstacles.forEach(obs => ctx.fillRect(obs.x, obs.y, obs.width, obs.height));
-    
-    // Karakter hareketini kontrol et
-      character.speedX = 0;
-      character.speedY = 0;
-
-      if (keys[37]) character.speedX = -4; // Sol
-      if (keys[39]) character.speedX = 4; // Sağ
-      if (keys[38]) character.speedY = -4; // Yukarı
-      if (keys[40]) character.speedY = 4; // Aşağı
-
-      ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
-      ctx.shadowBlur = 20;
-
-      character.updatePosition();
-      character.draw();
-
-      ctx.shadowColor = "transparent";
-      ctx.shadowBlur = 0;
-
-    // Elma toplanırsa
-      if (character.isTouchingApple()) {
-        placeApple();
-        updateScore();
-        collectSound.currentTime = 0;
-        collectSound.play();
-      }
-
-    // Engel çarpışması
-      if (detectCollision()) {
-        endGame(false); // Oyuncu kaybetti
-      }
-    }
-
-// Oyunu başlat
-    function startGame() {
-      score = 0;
-      gameOver = false;
-      timeLeft = 20;
-
-      timerDisplay.textContent = "Kalan Zaman: " + timeLeft;
-      scoreBoard.textContent = "Skor: 0";
-      winMessage.style.display = "none";
-      restartButton.style.display = "none";
-
-      initializeCharacter();
-      placeApple();
-      setupKeyboard();
-      backgroundMusic.play().catch(() => {});
-
-    // Oyun döngüsü
-      gameInterval = setInterval(updateGameArea, 20);
-
-    // Geri sayım başlat 
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        timerDisplay.textContent = "Kalan Zaman: " + timeLeft;
-        if (timeLeft <= 0) {
-          endGame(false, true); // Süre doldu 
-        }
-      }, 1000);
-    }
-
-// Oyun bitiş ekranı 
-    function endGame(won, timeout = false) {
-      gameOver = true;
-      clearInterval(gameInterval);
-      clearInterval(timerInterval);
-      backgroundMusic.pause();
-
-      if (won) {
-        winMessage.style.display = "block"; // Kazanma mesajı göster
-      } else {
-        gameOverSound.play();
-        ctx.fillStyle = "red";
-        ctx.font = "bold 48px sans-serif";
-        const message = timeout ? "Zaman Doldu!" : "Oyun Bitti!";
-        ctx.fillText(message, canvas.width / 2 - 140, canvas.height / 2);
-      }
-
-      restartButton.style.display = "inline-block";
-    }
-
-// Başlangıç ekranı çiz
-    function drawStartScreen() {
+    // Başlangıç ekranını çizme fonksiyonu
+    function showStartScreen() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(bgImage, 0, 0);
       ctx.fillStyle = "black";
@@ -401,20 +163,335 @@
       ctx.fillText("Click Start to Begin", canvas.width / 2 - 180, canvas.height / 2);
     }
 
-// Başlat butonu işlevi
+    // Başlat butonu olay dinleyicisi
     startButton.addEventListener("click", () => {
-    document.getElementById("howToPlay").style.display = "none";
-    startButton.style.display = "none";
-    restartButton.style.display = "none";
-    startGame();
-    });
-
-// Yeniden başlatma
-    restartButton.addEventListener("click", () => {
+      document.getElementById("howToPlay").style.display = "none";
+      startButton.style.display = "none";
+      restartButton.style.display = "none";
       startGame();
     });
+    
+    // Oyun değişkenleri
+    let player; // Oyuncu karakteri
+    let keysPressed = []; // Basılı tuşları tutan dizi
+    let score = 0; // Oyuncunun skoru
+    let gameOver = false; // Oyunun bitip bitmediğini kontrol eder
+    let gameLoop; // Oyun döngüsü referansı
+    let timeInterval; // Zamanlayıcı referansı
+    let timeRemaining = 30; // Kalan süre (saniye)
+    let pullEffectTimer = 0; // UFO çekme efektinin zamanlayıcısı
+
+    // Elma ile ilgili değişkenler
+    let appleX, appleY; // Elmanın konumu
+    const APPLE_SIZE = 70; // Elmanın boyutu
+
+    // Engeller (UFO'lar)
+    const badGuys = [  
+      { x: 200, y: 500, width: 80, height: 80, speedX: 0, speedY: 3, isPulling: false },
+    ];
+
+    // Sarı robotlar
+    const enemyShooters = [
+      { x: 400, y: 0, width: 100, height: 100, dir: 'down' },
+      { x: 800, y: 250, width: 100, height: 100, dir: 'left' }
+    ];
+
+    let bulletsArray = []; 
+
+    // Oyuncu karakteri sınıfı
+    class PlayerCharacter {
+      constructor(w, h, img, startX, startY) {
+        this.width = w;
+        this.height = h;
+        this.image = img;
+        this.x = startX;
+        this.y = startY;
+        this.speedX = 0;
+        this.speedY = 0;
+      }
+      // Karakteri çizme fonksiyonu
+      draw() {
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      }
+      
+      update() {  // Konum güncelleme fonksiyonu
+        this.x += this.speedX;
+        this.y += this.speedY;
+        // Oyun alanı sınırlarını kontrol etmek
+        if (this.x < 0) this.x = 0;
+        if (this.y < 0) this.y = 0;
+        if (this.x > canvas.width - this.width) this.x = canvas.width - this.width;
+        if (this.y > canvas.height - this.height) this.y = canvas.height - this.height;
+      }
+      
+      // Elma ile temas kontrolü
+      checkAppleCollision() {
+        return (
+          appleX >= this.x &&
+          appleX + APPLE_SIZE <= this.x + this.width &&
+          appleY >= this.y &&
+          appleY + APPLE_SIZE <= this.y + this.height
+        );
+      }
+    }
+
+    // Oyuncu karakterini başlatma fonksiyonu
+    function initPlayer() {
+      player = new PlayerCharacter(150, 150, squirrelImg, 800, 800);
+    }
+    
+    // Yeni elma oluşturma fonksiyonu
+    function spawnApple() {
+      appleX = Math.random() * (canvas.width - APPLE_SIZE);
+      appleY = Math.random() * (canvas.height - APPLE_SIZE);
+    }
+
+    // Skoru artırma fonksiyonu
+    function addScore() {
+      score++;
+      scoreBoard.textContent = "Skor: " + score;
+      if (score === 10) endGame(true);
+    }
+
+    // Klavye tuşlarını dinleme fonksiyonu
+    function handleInput() {
+      window.addEventListener("keydown", (e) => {
+        if ([37, 38, 39, 40].includes(e.keyCode)) {
+          e.preventDefault();
+          keysPressed[e.keyCode] = true;
+        }
+      });
+      window.addEventListener("keyup", (e) => {
+        if ([37, 38, 39, 40].includes(e.keyCode)) {
+          keysPressed[e.keyCode] = false;
+        }
+      });
+    }
+
+    // UFO ile çarpışma kontrolü
+    function checkUfoHit() {
+      return badGuys.some(ufo =>
+        ufo.isPulling && // Sadece çekme efekti aktifken öldürür
+        player.x < ufo.x + ufo.width - 40 &&
+        player.x + player.width - 40 > ufo.x &&
+        player.y < ufo.y + ufo.height - 40 &&
+        player.y + player.height - 40 > ufo.y
+      );
+    }
+
+    // Mermi ile çarpışma kontrolü
+    function checkBulletHit() {
+      const hitboxReduction = 30; 
+      return bulletsArray.some(bullet =>
+        player.x + hitboxReduction < bullet.x + bullet.size &&
+        player.x + player.width - hitboxReduction > bullet.x &&
+        player.y + hitboxReduction < bullet.y + bullet.size &&
+        player.y + player.height - hitboxReduction > bullet.y
+      );
+    }
+
+    // Yeni mermi oluşturma fonksiyonu
+    function createBullets() {
+      enemyShooters.forEach(shooter => {
+        const newBullet = {
+          x: shooter.x + shooter.width / 2 - 5,
+          y: shooter.y + shooter.height / 2 - 5,
+          size: 10,
+          speedX: shooter.dir === 'left' ? -5 : 0,
+          speedY: shooter.dir === 'down' ? 5 : 0
+        };
+        bulletsArray.push(newBullet);
+      });
+    }
+
+    // Mermileri güncelleme fonksiyonu
+    function updateBullets() {
+      bulletsArray.forEach(bullet => {
+        bullet.x += bullet.speedX;
+        bullet.y += bullet.speedY;
+      });
+      
+      // Oyun alanı dışına çıkan mermileri temizle
+      bulletsArray = bulletsArray.filter(b => 
+        b.x >= 0 && b.x <= canvas.width && 
+        b.y >= 0 && b.y <= canvas.height
+      );
+    }
+
+    // UFO'ları hareket ettirme fonksiyonu
+    function moveUfos() {
+      for (let ufo of badGuys) {
+        ufo.x += ufo.speedX;
+        ufo.y += ufo.speedY;
+        // Duvarlardan sekme
+        if (ufo.x <= 0 || ufo.x + ufo.width >= canvas.width) ufo.speedX *= -1;
+        if (ufo.y <= 0 || ufo.y + ufo.height >= canvas.height) ufo.speedY *= -1;
+      }
+    }
+
+    // Oyun güncelleme döngüsü 
+    function gameUpdate() {
+      if (gameOver) return;
+
+      pullEffectTimer++;
+      const isPullingNow = Math.floor(pullEffectTimer / 150) % 2 === 0;
+      badGuys.forEach(ufo => ufo.isPulling = isPullingNow);
+
+      // Oyun alanını temizle ve arkaplanı çiz
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(bgImage, 0, 0);
+      
+      // Elmayı çiz
+      ctx.drawImage(appleImg, appleX, appleY, APPLE_SIZE, APPLE_SIZE);
+      
+      // Konumları güncelle
+      moveUfos();
+      updateBullets();
+
+      // Sarı robotları çiz
+      enemyShooters.forEach(shooter => {
+        ctx.drawImage(shooterImg, shooter.x, shooter.y, shooter.width, shooter.height);
+      });
+
+      // UFO'ları işle
+      badGuys.forEach(ufo => {
+        ufo.isPulling = isPullingNow;
+
+        // UFO'yu çiz
+        ctx.drawImage(ufoImg, ufo.x, ufo.y, ufo.width, ufo.height);
+
+        // Çekme efekti aktifse
+        if (ufo.isPulling) {
+          // Çekme alanını çiz
+          ctx.beginPath();
+          ctx.arc(ufo.x + ufo.width / 2, ufo.y + ufo.height / 2, 100, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(139, 0, 0, 0.2)";
+          ctx.fill();
+
+          // Oyuncuya olan mesafeyi hesapla
+          const dx = ufo.x + ufo.width / 2 - (player.x + player.width / 2);
+          const dy = ufo.y + ufo.height / 2 - (player.y + player.height / 2);
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          // Eğer yeterince yakınsa çekme kuvveti uygula
+          if (distance < 180) {
+            const pullForce = 3;
+            player.x += (dx / distance) * pullForce;
+            player.y += (dy / distance) * pullForce;
+          }
+
+          // Çok yakınsa oyunu bitir
+          if (distance < 15) endGame(false);
+        }
+      });
+
+      // Mermileri çiz
+      ctx.fillStyle = 'black';
+      bulletsArray.forEach(b => ctx.fillRect(b.x, b.y, b.size, b.size));
+
+      // Oyuncu hareketini güncelle
+      player.speedX = 0;
+      player.speedY = 0;
+      if (keysPressed[37]) player.speedX = -4;
+      if (keysPressed[39]) player.speedX = 4;
+      if (keysPressed[38]) player.speedY = -4;
+      if (keysPressed[40]) player.speedY = 4;
+
+      // Oyuncuyu güncelle ve çiz
+      player.update();
+      player.draw();
+
+      // Elma toplama kontrolü
+      if (player.checkAppleCollision()) {
+        spawnApple();
+        addScore();
+        collectSound.currentTime = 0;
+        collectSound.play();
+      }
+
+      // Ölüm kontrolü
+      if (checkUfoHit() || checkBulletHit()) {
+        endGame(false);
+      }
+    }
+
+    // Oyunu başlatma fonksiyonu
+    function startGame() {
+      score = 0;
+      gameOver = false;
+      timeRemaining = 30;
+      pullEffectTimer = 0;
+      bulletsArray = [];
+      // Arayüzü güncelle
+      timerDisplay.textContent = "Kalan Zaman: " + timeRemaining;
+      scoreBoard.textContent = "Skor: 0";
+      winMessage.style.display = "none";
+      restartButton.style.display = "none";
+      // Oyuncuyu ve elmayı başlat
+      initPlayer();
+      spawnApple();
+      // Girişleri dinle
+      handleInput();
+      
+      // Müziği başlat (hata olursa yakala)
+      bgMusic.play().catch(() => {}); 
+      
+      // Oyun döngüsünü başlat
+      gameLoop = setInterval(gameUpdate, 20);
+      // Zamanlayıcıyı başlat
+      timeInterval = setInterval(() => {
+        timeRemaining--;
+        timerDisplay.textContent = "Kalan Zaman: " + timeRemaining;
+        if (timeRemaining <= 0) endGame(false, true);
+      }, 1000);
+      
+      // Sarı robotların zamanlayıcılarını ayarla
+      enemyShooters.forEach((shooter, i) => {
+        shooter.interval = setInterval(() => {
+          const bullet = {
+            x: shooter.x + shooter.width / 2 - 5,
+            y: shooter.y + shooter.height / 2 - 5,
+            size: 10,
+            speedX: shooter.dir === 'left' ? -5 : 0,
+            speedY: shooter.dir === 'down' ? 5 : 0
+          };
+          bulletsArray.push(bullet);
+        }, 2500 + i * 800); // Ateş etme aralıklarını kaydır
+      });
+    }
+
+    // Oyunu bitirme fonksiyonu
+    function endGame(won, timeout = false) {
+      gameOver = true;
+      // Döngüleri temizle
+      clearInterval(gameLoop);
+      clearInterval(timeInterval);
+      bgMusic.pause();
+      
+      // Kazanma durumu
+      if (won) {
+        winMessage.style.display = "block";
+      } else {
+        gameOverSound.play();
+        ctx.fillStyle = "red";
+        ctx.font = "bold 48px sans-serif";
+        ctx.fillText(
+          timeout ? "Zaman Doldu!" : "Oyun Bitti!", 
+          canvas.width / 2 - 140, 
+          canvas.height / 2
+        );
+      }
+      
+      // Yeniden başlat butonunu göster
+      restartButton.style.display = "inline-block";
+      // Sarı robotların zamanlayıcılarını temizle
+      enemyShooters.forEach(shooter => clearInterval(shooter.interval));
+    }
+
+    // Yeniden başlat butonu olay dinleyicisi
+    restartButton.addEventListener("click", startGame);
+
 
   </script>
-
 </body>
 </html>
