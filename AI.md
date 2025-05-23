@@ -1,7 +1,7 @@
 # AI Prompt'ları
 
 ## Prompt#1:
-JS Canvas üzerinde Müziği tanımladıktan sonra döngüsü nasıl yapılır kısacası
+JavaScript'te klavye tuşlarını dinleyerek bir karakteri nasıl hareket ettiririm? Yön tuşları (ok tuşları) için basit bir event listener örneği verir misin?
 
 ## Cevap#1:
 > JavaScript ile <canvas> üzerinde bir müzik çalarken bu müziğin döngüye alınması (loop edilmesi) oldukça basittir. Müzik dosyasını tanımladıktan sonra, loop özelliğini true yaparak bunu sağlayabilirsin.
