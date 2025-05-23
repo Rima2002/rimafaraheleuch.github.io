@@ -12,7 +12,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 -	**CSS3:** Oyun tasarımı, butonlar ve kullanıcı arayüzü düzenlemeleri için kullandım.
 -	**JavaScript:** Oyun mekaniği, hareket, skor sistemi, çarpışma tespiti ve zamanlayıcı işlemleri için kullandım.
 -	**HTML5 <canvas>:** Oyun grafikleri çizimi için ana platform olarak kullandım.
--	**Görseller:** Sincap karakteri, elma, sarı robotlar, UFO ve arka plan.
+-	**Görseller:** Sincap karakteri, elma, sarı robotlar, UFO ve arka plan (ChatGpt ile kendim oluşturdum)
 - **Sesler:** Arka plan müziği, elma toplama sesi, oyun bitiş sesi.
 
 ## 3. Oyun Kuralları ve Mekanikleri
