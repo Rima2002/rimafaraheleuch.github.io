@@ -7,6 +7,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 
   **Seçtiğim oyun:**![ORB Inc.] (https://angry-armadillo-games.itch.io/bricker-breaks-free)
   
+  
 ## 2. Kullanılan Teknolojiler
 -	**HTML5:** Sayfa yapısı ve oyun alanı (canvas) oluşturmak için kullandım.
 -	**CSS3:** Oyun tasarımı, butonlar ve kullanıcı arayüzü düzenlemeleri için kullandım.
