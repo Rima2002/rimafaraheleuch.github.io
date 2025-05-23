@@ -4,10 +4,7 @@
 JavaScript'te klavye tuşlarını dinleyerek bir karakteri nasıl hareket ettiririm? Yön tuşları (ok tuşları) için basit bir event listener örneği verir misin?
 
 ## Cevap#1:
-```
-keydown ve keyup event'larını kullanabilirsin. Tuş kodlarını (keyCode) bir diziye kaydederek hangi tuşun basılı olduğunu takip edebilirsin. Örneğin, sol ok tuşu (37) basılıysa karakterin X pozisyonunu azalt.
-
-```
+> ```keydown``` ve ```keyup``` event'larını kullanabilirsin. Tuş kodlarını (```keyCode```) bir diziye kaydederek hangi tuşun basılı olduğunu takip edebilirsin. Örneğin, sol ok tuşu (37) basılıysa karakterin X pozisyonunu azalt.
 
 ## Prompt#2:
 Peki tüm görseller yükledikten sonra "assetLoaded" fonksiyonu ile oyunu nasıl başlatabilirim kısacası .
