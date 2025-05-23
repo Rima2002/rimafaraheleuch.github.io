@@ -5,28 +5,28 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/1.PNG)
   
 ## 2. Kullanılan Teknolojiler
--	HTML5: Sayfa yapısı ve oyun alanı (canvas) oluşturmak için kullanıldı.
--	CSS3: Oyun tasarımı, butonlar ve kullanıcı arayüzü düzenlemeleri için kullanıldı.
--	JavaScript: Oyun mekaniği, hareket, skor sistemi, çarpışma tespiti ve zamanlayıcı işlemleri için kullanıldı.
--	HTML5 <canvas>: Oyun grafikleri çizimi için ana platform olarak kullanıldı.
+-	HTML5: Sayfa yapısı ve oyun alanı (canvas) oluşturmak için kullandım.
+-	CSS3: Oyun tasarımı, butonlar ve kullanıcı arayüzü düzenlemeleri için kullandım.
+-	JavaScript: Oyun mekaniği, hareket, skor sistemi, çarpışma tespiti ve zamanlayıcı işlemleri için kullandım.
+-	HTML5 <canvas>: Oyun grafikleri çizimi için ana platform olarak kullandım.
 -	Multimedya:
--	Görseller: Sincap karakteri, elma ve arka plan.
+-	Görseller: Sincap karakteri, elma, sarı robotlar, UFO ve arka plan.
 - Sesler: Arka plan müziği, elma toplama sesi, oyun bitiş sesi.
 
 ## 3. Oyun Kuralları ve Mekanikleri
--	Amaç: Oyuncu, 20 saniye içinde 8 elma toplamalıdır.
+-	Amaç: Oyuncu, 30 saniye içinde 10 elma toplamalıdır.
 -	Kontroller: Yön tuşları ile hareket sağlanır (↑ ↓ ← →).
--	Kazanç: Oyuncu 8 elmayı süresi dolmadan toplarsa oyunu kazanır.
+-	Kazanç: Oyuncu 10 elmayı süresi dolmadan toplarsa oyunu kazanır.
 
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot1.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot2.PNG)
 
 -	Kaybetme: Oyuncu bir engelle çarpışırsa ya da süresi dolarsa oyun biter.
 -	
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot2.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot3.PNG) ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot4.PNG)
  	
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot3.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot5.PNG)
 
--	Engeller: Rastgele hareket eden kahverengi bloklar.
+-	Engeller: Kırmızı ışın yayan UFO'lar (seni kendine çeker) ve sarı robotların attığı mermiler.
 -	Elma: Haritada rastgele konumlanan, sabit boyutlu hedef.
 
 ## 4. Oyunun İşleyişi
