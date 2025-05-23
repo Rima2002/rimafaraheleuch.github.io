@@ -54,7 +54,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 
 Oyun Linki: [GitHub Pages](https://rima2002.github.io/rimafaraheleuch.github.io/)
 
-Youtube Linki: [Youtube Video](https://www.youtube.com/watch?v=h3-dopV331w](https://www.youtube.com/watch?v=aTjDRWfT60E)
+Youtube Linki: [Youtube Video](https://www.youtube.com/watch?v=aTjDRWfT60E)
 
 ## 5. Kullanıcı Arayüzü Özellikleri
 *	Skor ve geri sayım sayacı.
