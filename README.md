@@ -5,7 +5,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/oyun_talimatlari.PNG)
 
 
-**Seçtiğim oyun:** [ORB Inc.][(https://bonesheep.itch.io/orbinc)
+**Seçtiğim oyun:** [ORB Inc.](https://bonesheep.itch.io/orbinc)
 
 > Orbinc'in çekirdek mekaniği olan "yerçekimi alanlarından kaçarak enerji toplama" oyunu minimalist tasarımı ve basit ama bağımlılık yapan şekilde kendi kültürel öğelerimi katabileceğim bir versiyon oluşturmak istedim. Orbinc'teki uzay teması yerine ormanlarda geçen bir sincap hikayesi kurguladım.
 
