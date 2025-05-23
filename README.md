@@ -20,13 +20,13 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 -	**Kontroller:** Yön tuşları ile hareket sağlanır (↑ ↓ ← →).
 -	**Kazanç:** Oyuncu 10 elmayı süresi dolmadan toplarsa oyunu kazanır.
 
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot2.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/2.PNG)
 
 -	**Kaybetme:** Oyuncu bir engelle çarpışırsa ya da süresi dolarsa oyun biter.
   
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot3.PNG) 
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/3.PNG) 
  	
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot5.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/5.PNG)
 
 -	**Engeller:** Kırmızı ışın yayan UFO'lar (seni kendine çeker) ve sarı robotların attığı mermiler.
 -	**Elma:** Haritada rastgele konumlanan, sabit boyutlu hedef.
