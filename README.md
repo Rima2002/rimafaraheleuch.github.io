@@ -35,7 +35,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/kazanc.PNG)
 
--	**Kaybetme:** Oyuncu bir engelle çarpışırsa ya da süresi dolarsa oyun biter.
+-	**Kaybetme:** Oyuncu bir engelle çarpışırsa/UFO'ya çekilirse ya da süresi dolarsa oyun biter.
   
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/kaybetme.PNG) 
  	
