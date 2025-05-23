@@ -5,12 +5,11 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/1.PNG)
   
 ## 2. Kullanılan Teknolojiler
--	HTML5: Sayfa yapısı ve oyun alanı (canvas) oluşturmak için kullandım.
--	CSS3: Oyun tasarımı, butonlar ve kullanıcı arayüzü düzenlemeleri için kullandım.
--	JavaScript: Oyun mekaniği, hareket, skor sistemi, çarpışma tespiti ve zamanlayıcı işlemleri için kullandım.
--	HTML5 <canvas>: Oyun grafikleri çizimi için ana platform olarak kullandım.
--	Multimedya:
--	Görseller: Sincap karakteri, elma, sarı robotlar, UFO ve arka plan.
+-	**HTML5:** Sayfa yapısı ve oyun alanı (canvas) oluşturmak için kullandım.
+-	**CSS3:** Oyun tasarımı, butonlar ve kullanıcı arayüzü düzenlemeleri için kullandım.
+-	**JavaScript:** Oyun mekaniği, hareket, skor sistemi, çarpışma tespiti ve zamanlayıcı işlemleri için kullandım.
+-	**HTML5 <canvas>:** Oyun grafikleri çizimi için ana platform olarak kullandım.
+**-	Görseller:** Sincap karakteri, elma, sarı robotlar, UFO ve arka plan.
 - Sesler: Arka plan müziği, elma toplama sesi, oyun bitiş sesi.
 
 ## 3. Oyun Kuralları ve Mekanikleri
@@ -22,7 +21,7 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 
 -	Kaybetme: Oyuncu bir engelle çarpışırsa ya da süresi dolarsa oyun biter.
 -	
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot3.PNG) ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot4.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot3.PNG) 
  	
   ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/screenshot5.PNG)
 
@@ -31,10 +30,10 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 
 ## 4. Oyunun İşleyişi
 1.	Oyuncu “Oyunu Başlat” butonuna tıkladığında oyun başlar.
-2.	Süre geri saymaya başlar (20 saniye).
-3.	Sincap, yön tuşlarıyla hareket eder.
+2.	Süre geri saymaya başlar (30 saniye).
+3.	Sincap, yön tuşlarıyla hareket eder ve engellerden kaçar.
 4.	Elma toplanınca skor artar ve yeni elma haritada rastgele bir yere yerleştirilir.
-5.	Skor 8’e ulaştığında “🎉 Kazandın!” mesajı gösterilir.
+5.	Skor 10’a ulaştığında “🎉 Kazandın!” mesajı gösterilir.
 6.	Oyun bittiğinde “Oyunu Yeniden Başlat” butonu aktif olur.
 
 Oyun Linki: [GitHub Pages](https://rima2002.github.io/rimafaraheleuch.github.io/)
