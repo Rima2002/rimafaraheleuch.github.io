@@ -2,7 +2,7 @@
 ## 1. Proje Amacı
 Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D macera oyunudur. Oyuncu, yön tuşları ile bir sincabı kontrol eder. Amaç, 30 saniye içerisinde 10 elmayı toplamak ve engellere çarpmadan oyunu kazanmaktır.
 
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/1.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/oyun_talimatlari.PNG)
 
 
   **Seçtiğim oyun:**![ORB Inc.] (https://angry-armadillo-games.itch.io/bricker-breaks-free)
@@ -20,13 +20,13 @@ Bu proje, HTML5 Canvas ve JavaScript kullanılarak oluşturulmuş basit bir 2D m
 -	**Kontroller:** Yön tuşları ile hareket sağlanır (↑ ↓ ← →).
 -	**Kazanç:** Oyuncu 10 elmayı süresi dolmadan toplarsa oyunu kazanır.
 
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/2.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/kazanc.PNG)
 
 -	**Kaybetme:** Oyuncu bir engelle çarpışırsa ya da süresi dolarsa oyun biter.
   
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/3.PNG) 
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/kaybetme.PNG) 
  	
-  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/5.PNG)
+  ![image alt](https://github.com/Rima2002/rimafaraheleuch.github.io/blob/main/zaman_doldu.PNG)
 
 -	**Engeller:** Kırmızı ışın yayan UFO'lar (seni kendine çeker) ve sarı robotların attığı mermiler.
 -	**Elma:** Haritada rastgele konumlanan, sabit boyutlu hedef.
