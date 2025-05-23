@@ -63,10 +63,10 @@ Youtube Linki: [Youtube Video](https://www.youtube.com/watch?v=aTjDRWfT60E)
 *	Görsel olarak sade ve kullanıcı dostu tasarım.
   
 > [!NOTE]
-> - Seviye sistemi: Elma sayısını ve engel hızını artırarak zorluk seviyesi ayarlanabilir.
-> - Can sistemi: Engellere birden fazla çarpma hakkı tanınabilir.
-> - Daha fazla ses efekti: Etkileşimli sesler oyun deneyimini zenginleştirir.
-> - Tema değişikliği: Farklı arka planlar ve karakter seçenekleri sunulabilir.
+> - **Seviye sistemi:** Elma sayısını ve engel hızını artırarak zorluk seviyesi ayarlanabilir.
+> - **Can sistemi:** Engellere birden fazla çarpma hakkı tanınabilir.
+> - **Daha fazla ses efekti:** Etkileşimli sesler oyun deneyimini zenginleştirir.
+> - **Tema değişikliği:** Farklı arka planlar ve karakter seçenekleri sunulabilir.
 
 ## 6. Sonuç
-“Sincap: Elma Toplama” oyunu, temel düzeyde oyun geliştirme ve JavaScript ile interaktif uygulama yapma konusunda güçlü bir örnektir. Oyun hem eğlenceli hem de geliştirilmeye açık bir yapıya sahiptir.
+“Sincap: Elma Toplama” oyunu, temel düzeyde oyun geliştirme ve JavaScript ile interaktif uygulama yapma konusunda güçlü bir örnek olarak sundum. Oyun hem eğlenceli hem de geliştirilmeye açık bir yapıya sahiptir.
